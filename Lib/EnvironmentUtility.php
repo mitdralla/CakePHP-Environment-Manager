@@ -68,10 +68,10 @@ class EnvUtil
         foreach ($envUtil->envs as $env => $data) {
             if (self::is($env)) {
                 return $env;
-            } else {
-                return 'dev';
             }
         }
+        
+        return false;
     }
     
 	static public function is($env)

@@ -103,7 +103,7 @@ Example - Send push Environment to a user:
     public function theEnv()
     {
         ... 
-        $env = EnvironmentUtility::which(); // Get the current environment
+        $env = EnvironmentUtility::which(); // Get the current environment, returns false if unknown
         ...
         if (EnvironmentUtility::is('production')) {
             // Run this code if in the production environment
