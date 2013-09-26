@@ -5,7 +5,7 @@
  * Remember to fill in the fields!
  */
 
-if (Configure::check('EnvironmentUtility.environments')) {
+if (!Configure::check('EnvironmentUtility.environments')) {
     Configure::write('EnvironmentUtility.environments', [
     	'production' => [
     		'urls' => [
