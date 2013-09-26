@@ -5,7 +5,7 @@
  * Remember to fill in the fields!
  */
 
-if (!Configure::read('EnvironmentUtility.environments') {
+if (!Configure::read('EnvironmentUtility.environments')) {
     Configure::write('EnvironmentUtility.environments', [
     	'production' => [
     		'urls' => [
