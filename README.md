@@ -108,6 +108,10 @@ Example - Send push Environment to a user:
         if (EnvironmentUtility::is('production')) {
             // Run this code if in the production environment
         }
+        
+        if (EnvironmentUtility::is('development')) {
+            // Run this code if in the development environment
+        }
     }
 
 ## Todo
