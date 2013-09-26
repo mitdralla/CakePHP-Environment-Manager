@@ -5,7 +5,7 @@
  * running.
  * 
  */
-class EnvUtil 
+class EnvironmentUtility 
 {
 	private $envs = [];
 	
@@ -16,12 +16,17 @@ class EnvUtil
         }
 	}
     
+    static public function getEnvs()
+    {
+        $e = new EnvironmentUtility();
+        
+        return $e->envs;
+    }
+    
     static public function which()
     {
-        $envUtil = new EnvUtil();
-        
-        foreach (self::envs as $env => $data) {
-            if (self::is($env)) {
+        foreach (static::getEnvs() as $env => $data) {
+            if (static::is($env)) {
                 return $env;
             }
         }
@@ -31,20 +36,22 @@ class EnvUtil
     
 	static public function is($env)
 	{
-		$url = (
-            isset(self::envs[$env] // if the environment exists 
+        $envs = static::getEnvs();
+        
+        $url = (
+            isset($envs[$env]) // if the environment exists 
             && isset($_SERVER['SERVER_NAME']) // server name exists (ex. it's not a cron call)
-            && in_array(strtolower($_SERVER['SERVER_NAME']), self::envs[$env]['urls'])
+            && in_array(strtolower($_SERVER['SERVER_NAME']), $envs[$env]['urls'])
         );
         
         $path = (
-            isset(self::envs[$env] // if the environment exists 
-            && in_array(APP, self::envs[$env]['paths']) // if it's in the path
-        )
-
-		if ($url || $path) {
-			return true;
-		}
+            isset($envs[$env]) // if the environment exists 
+            && in_array(APP, $envs[$env]['paths']) // if it's in the path
+        );
+        
+        if ($url || $path) {
+            return true;
+        }
 		
 		return false;
 	}
