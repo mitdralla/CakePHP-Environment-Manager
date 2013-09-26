@@ -11,7 +11,7 @@ class EnvUtil
 	
 	public function __construct()
 	{
-        if (!empty(Configure::read('EnvironmentUtility.environments'))) {
+        if (Configure::check('EnvironmentUtility.environments')) {
             $this->envs = Configure::read('EnvironmentUtility.environments');
         }
 	}
