@@ -7,52 +7,7 @@
  */
 class EnvUtil 
 {
-	private $envs = [
-    	'production' => [
-    		'urls' => [
-    			// example: 'www.example.com'
-                // example: 'api.example.com'
-                // example: 'example.com'
-    		],
-    		'paths' => [
-                // example: '/path/to/my/cakephp/app/'
-    		    // example: '/var/www/html/app/'
-                // example: '/var/www/public/app/'
-    		]
-        ],
-    	'beta' => [
-    		'urls' => [
-    		    // example: 'beta.example.com'
-    		],
-    		'paths' => [
-    		    // example: '/var/www/beta/app/'
-    		]
-    	],
-    	'staging' => [
-    		'urls' => [
-    		    // example: 'stage.example.com'
-    		],
-    		'paths' => [
-    		    // example: '/var/www/stage/app/'
-    		]
-    	],
-    	'development' => [
-    		'urls' => [
-    		    // example: 'dev.example.com'
-    		],
-    		'paths' => [
-    		    // example: '/var/www/dev/app/'
-    		]
-    	],
-    	'local' => [
-    		'urls' => [
-    			// example: 'local.example.com'
-    		],
-    		'paths' => [
-    		    // example: '/var/www/local/app/'
-    		]
-        ]
-	];
+	private $envs = [];
 	
 	public function __construct()
 	{
@@ -65,7 +20,7 @@ class EnvUtil
     {
         $envUtil = new EnvUtil();
         
-        foreach ($envUtil->envs as $env => $data) {
+        foreach (self::envs as $env => $data) {
             if (self::is($env)) {
                 return $env;
             }
@@ -76,13 +31,18 @@ class EnvUtil
     
 	static public function is($env)
 	{
-		$envUtil = new EnvUtil();
+		$url = (
+            isset(self::envs[$env] // if the environment exists 
+            && isset($_SERVER['SERVER_NAME']) // server name exists (ex. it's not a cron call)
+            && in_array(strtolower($_SERVER['SERVER_NAME']), self::envs[$env]['urls'])
+        );
+        
+        $path = (
+            isset(self::envs[$env] // if the environment exists 
+            && in_array(APP, self::envs[$env]['paths']) // if it's in the path
+        )
 
-		if (
-			(isset($_SERVER['SERVER_NAME']) && 
-			in_array(strtolower($_SERVER['SERVER_NAME']), $envUtil->envs[$env]['urls'])) ||
-			in_array(APP, $envUtil->envs[$env]['paths'])
-		) {
+		if ($url || $path) {
 			return true;
 		}
 		
