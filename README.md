@@ -48,7 +48,7 @@ If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 Edit `/app/Config/bootstrap.php` file and add `EnvironmentUtility` environments:
 
     Configure::write('EnvironmentUtility.envs', [
-    	'production' => [
+    	'prod' => [
     		'urls' => [
     			// example: 'www.example.com'
                 // example: 'api.example.com'
@@ -68,7 +68,7 @@ Edit `/app/Config/bootstrap.php` file and add `EnvironmentUtility` environments:
     		    // example: '/var/www/beta/app/'
     		]
     	],
-    	'staging' => [
+    	'stage' => [
     		'urls' => [
     		    // example: 'stage.example.com'
     		],
@@ -76,7 +76,7 @@ Edit `/app/Config/bootstrap.php` file and add `EnvironmentUtility` environments:
     		    // example: '/var/www/stage/app/'
     		]
     	],
-    	'development' => [
+    	'dev' => [
     		'urls' => [
     		    // example: 'dev.example.com'
     		],
@@ -105,11 +105,11 @@ Example - Send push Environment to a user:
         ... 
         $env = EnvironmentUtility::which(); // Get the current environment, returns false if unknown
         ...
-        if (EnvironmentUtility::is('production')) {
+        if (EnvironmentUtility::is('prod')) {
             // Run this code if in the production environment
         }
         
-        if (EnvironmentUtility::is('development')) {
+        if (EnvironmentUtility::is('dev')) {
             // Run this code if in the development environment
         }
     }
