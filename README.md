@@ -47,7 +47,7 @@ If you are already using `CakePlugin::loadAll();`, then this is not necessary.
 
 Edit `/app/Config/bootstrap.php` file and add `EnvironmentUtility` environments:
 
-    Configure::write('EnvironmentUtility.envs', [
+    Configure::write('EnvironmentUtility.environments', [
     	'prod' => [
     		'urls' => [
     			// example: 'www.example.com'
